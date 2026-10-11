@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JunjieLIAN</title>
+<meta name="description" content="Junjie Lian — film scholar working on transnational cinema, Asian cinema, creative industries, cultural memory and film festivals.">
+<style>
+  /* ==================== 配色 ==================== */
+  :root {
+    --bg: #ffffff;
+    --fg: #1b1b1d;
+    --muted: #6a6a72;
+    --accent: #1a5fb4;
+    --rule: #e8e8e8;
+    --chip: #f4f4f4;
+  }
+
+  /* ==================== 基础 ==================== */
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC",
+                 "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+                 Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16.5px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* 页面宽度 */
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 40px 32px 56px;
+  }
+
+  /* ==================== 顶部导航 ==================== */
+  .topnav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 26px;
+    padding: 0 0 18px;
+    margin-bottom: 34px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .topnav a {
+    font-size: .84rem;
+    font-weight: 500;
+    color: var(--muted);
+    padding: 3px 0;
+    border-bottom: 2px solid transparent;
+    transition: color .15s ease, border-color .15s ease;
+    white-space: nowrap;
+  }
+  .topnav a:hover {
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .topnav a.active {
+    color: var(--fg);
+    border-bottom-color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ==================== 页面切换 ==================== */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ==================== 页首：CSS Grid 精确对齐 ==================== */
+  .hero {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    column-gap: 40px;
+    row-gap: 24px;
+    align-items: start;
+  }
+
+  /* 行1 - 左：头像 */
+  .hero-avatar {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+    align-self: start;
+  }
+  .avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 14%;
+    background: var(--chip);
+    border: 1px solid var(--rule);
+    display: block;
+    user-select: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12),
+                0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  /* 行1 - 右：姓名 + 职位 */
+  .hero-name {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 2.05rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+  }
+  h1 .name-zh {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-left: 12px;
+    color: var(--fg);
+    letter-spacing: .04em;
+  }
+
+  .role {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  /* 行2 - 左：研究兴趣 + 联系方式 */
+  .hero-interests {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+  }
+
+  .side-title {
+    margin: 0 0 4px;
+    font-size: .78rem;
+    line-height: 1.55;
+    font-weight: 700;
+    color: var(--fg);
+    text-align: left;
+  }
+  .side-interests {
+    margin: 0 0 12px;
+    padding-left: 1.2em;
+    font-size: .78rem;
+    line-height: 1.55;
+    color: var(--fg);
+    text-align: left;
+  }
+  .side-interests li {
+    margin-bottom: 2px;
+  }
+  .side-interests li:last-child {
+    margin-bottom: 0;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    font-size: .78rem;
+    line-height: 1.5;
+    color: var(--fg);
+    text-align: left;
+    white-space: nowrap;
+  }
+  .contact-info .ci-label {
+    font-weight: 700;
+  }
+  .contact-info a {
+    color: var(--accent);
+  }
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
+
+  /* 行2 - 右：简介（与左侧 “Research Interests:” 对齐到同一行） */
+  .hero-bio {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+  }
+
+  .bio {
+    margin: 0;
+  }
+
+  /* ==================== 区块 ==================== */
+  section {
+    margin-top: 58px;
+    scroll-margin-top: 24px;
+  }
+  .page > section:first-child {
+    margin-top: 0;
+  }
+
+  /* 区块标题：更大、颜色更深 */
+  h2 {
+    margin: 0 0 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+
+  h3.group {
+    margin: 34px 0 14px;
+    font-size: .95rem;
+    font-weight: 700;
+    letter-spacing: .01em;
+  }
+  h3.group:first-of-type { margin-top: 0; }
+
+  /* 子标题下划线 */
+  h3.group.line-under {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+  }
+
+  /* ==================== 兴趣 ==================== */
+  .interests {
+    margin: 0;
+    padding-left: 1.15em;
+  }
+  .interests li { margin-bottom: 5px; }
+  .interests li:last-child { margin-bottom: 0; }
+
+  /* ==================== 条目 ==================== */
+  .entry {
+    padding: 18px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .entry:first-of-type {
+    padding-top: 0;
+    border-top: none;
+  }
+  .entry.no-border-top {
+    border-top: none;
+  }
+
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px 20px;
+    flex-wrap: nowrap;
+  }
+
+  .entry-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .entry-date {
+    flex: 0 0 auto;
+    color: var(--muted);
+    font-size: .85rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .entry-sub {
+    margin: 3px 0 0;
+    font-size: .9rem;
+    color: var(--muted);
+  }
+
+  .entry-desc {
+    margin: 9px 0 0;
+    font-size: .95rem;
+  }
+
+  .entry-points {
+    margin: 9px 0 0;
+    padding-left: 1.15em;
+    font-size: .95rem;
+  }
+  .entry-points li { margin-bottom: 6px; }
+  .entry-points li:last-child { margin-bottom: 0; }
+
+  .entry-points ul.sub-points {
+    margin: 6px 0 0;
+    padding-left: 1.15em;
+    list-style: disc;
+  }
+  .entry-points ul.sub-points li {
+    margin-bottom: 5px;
+  }
+  .entry-points ul.sub-points li:last-child { margin-bottom: 0; }
+
+  /* 论文内字段 */
+  .fields {
+    margin: 10px 0 0;
+    font-size: .94rem;
+  }
+  .fields ul {
+    margin: 0;
+    padding-left: 1.2em;
+    list-style: disc;
+  }
+  .fields li {
+    margin-bottom: 7px;
+  }
+  .fields li:last-child { margin-bottom: 0; }
+
+  /* 通用加粗标记 */
+  .k {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* 论文引用行 */
+  .cite {
+    margin: 0;
+    font-size: .95rem;
+    line-height: 1.65;
+    font-weight: 600;
+  }
+  .cite strong { font-weight: 600; }
+  .cite em { font-style: italic; }
+
+  /* ==================== 紧凑列表 ==================== */
+  .rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .rows li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 6px 22px;
+    flex-wrap: nowrap;
+    padding: 9px 0;
+    font-size: .95rem;
+  }
+  .rows .r-name {
+    font-weight: 600;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .rows .r-date {
+    flex: 0 0 auto;
+    color: var(--muted);
+    font-size: .85rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* ==================== 语言与技能 ==================== */
+  .skill-block {
+    padding: 9px 0;
+  }
+  .skill-label {
+    margin: 0 0 4px;
+    font-weight: 700;
+    font-size: .95rem;
+  }
+  .skill-content {
+    margin: 0;
+    font-size: .95rem;
+    line-height: 1.7;
+  }
+
+  /* ==================== 教育背景：两列布局 ==================== */
+  .edu-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .edu-logo {
+    flex: 0 0 72px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--chip);
+    border: 1px solid var(--rule);
+    display: block;
+    user-select: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12),
+                0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+  .edu-content {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  /* ==================== 页脚 ==================== */
+  footer {
+    margin-top: 74px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 20px;
+    color: var(--muted);
+    font-size: .83rem;
+  }
+
+  /* ==================== 响应式 ==================== */
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .wrap { padding: 30px 20px 48px; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      row-gap: 20px;
+    }
+    .hero-avatar { grid-column: 1; grid-row: 1; justify-self: start; }
+    .hero-name   { grid-column: 1; grid-row: 2; }
+    .hero-interests { grid-column: 1; grid-row: 3; }
+    .hero-bio    { grid-column: 1; grid-row: 4; }
+
+    .avatar { width: 130px; height: 130px; }
+    h1 .name-zh { display: block; margin: 4px 0 0; font-size: 1.2rem; }
+
+    .contact-info { white-space: normal; }
+    h1 { font-size: 1.7rem; }
+    section { margin-top: 44px; }
+    .entry-head { flex-wrap: wrap; }
+    .entry-date { white-space: normal; }
+    .topnav { gap: 6px 18px; }
+    .topnav a { font-size: .8rem; white-space: normal; }
+
+    .edu-layout { flex-direction: column; gap: 16px; }
+    .edu-logo { flex: 0 0 64px; width: 64px; height: 64px; }
+  }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <!-- ==================== 顶部导航 ==================== -->
+  <nav class="topnav" id="topnav">
+    <a href="#" data-target="about" class="active">About Me</a>
+    <a href="#" data-target="dissertations">Academic Dissertations</a>
+    <a href="#" data-target="research-experience">Research Experience</a>
+    <a href="#" data-target="activities">Academic Activities</a>
+    <a href="#" data-target="professional">Professional Experience</a>
+    <a href="#" data-target="creative">Creative &amp; Cultural Experience</a>
+  </nav>
+
+  <!-- ==================== About Me 页面 ==================== -->
+  <div class="page active" id="about">
+
+    <!-- 页首（Grid 两行两列） -->
+    <header class="hero">
+
+      <!-- 行1 左：头像 -->
+      <div class="hero-avatar">
+        <img class="avatar" src="https://www.laogaohome.top/i/8QOjdjsQAoKJEcp6rNgcR_QYZE7Xwp1URh0JQ7xQOH0" alt="Junjie LIAN">
+      </div>
+
+      <!-- 行1 右：姓名 + 职位 -->
+      <div class="hero-name">
+        <h1>Junjie LIAN<span class="name-zh">练俊杰</span></h1>
+        <p class="role">Bachelor of South China Agricultural University (Guangdong, China)</p>
+      </div>
+
+      <!-- 行2 左：研究兴趣 + 联系方式 -->
+      <div class="hero-interests">
+        <p class="side-title">Research Interests:</p>
+        <ul class="side-interests">
+          <li>Transnational Cinema</li>
+          <li>Asian Cinema</li>
+          <li>Creative Industries</li>
+          <li>Cultural Memory and Heritage</li>
+          <li>Film Festival</li>
+        </ul>
+        <div class="contact-info">
+          <span><span class="ci-label">Email:</span> jun_jie_lian@163.com</span>
+          <span><span class="ci-label">LinkedIn:</span> <a href="https://www.linkedin.com/in/%E4%BF%8A%E6%9D%B0-%E7%BB%83-80b246443" target="_blank" rel="noopener">Junjie LIAN</a></span>
+          <span><span class="ci-label">Tel:</span> +86 190 6533 4768</span>
+        </div>
+      </div>
+
+      <!-- 行2 右：简介（首行与左侧 “Research Interests:” 对齐） -->
+      <div class="hero-bio">
+        <p class="bio">
+          I work on transnational and Asian cinema, creative industries, cultural memory and
+          heritage, and film festivals. My current research traces Guangdong–Hong Kong imaginaries
+          in co-productions and southern New Year films, and compares experiences of cinematic
+          modernity across East Asia.
+        </p>
+      </div>
+
+    </header>
+
+    <!-- 教育背景 -->
+    <section id="education">
+      <h2>Education</h2>
+      <div class="entry">
+        <div class="edu-layout">
+          <img class="edu-logo" src="https://i.postimg.cc/21z8qr34/SCAU-logo.png" alt="South China Agricultural University" onerror="this.style.display='none'">
+          <div class="edu-content">
+            <div class="entry-head">
+              <h3 class="entry-title">South China Agricultural University (Guangdong, China)</h3>
+              <span class="entry-date">Sep. 2023 – Jun. 2027</span>
+            </div>
+            <p class="entry-sub">Double First-Class University</p>
+            <p class="entry-sub">Bachelor of Arts in Broadcasting and Television Directing</p>
+
+            <ul class="entry-points" style="margin-top:10px;">
+              <li>Mentor：Dr. Zongsheng YUE</li>
+              <li>Core course GPA: 3.33/5.0</li>
+              <li>Core course average score: 82.25/100</li>
+              <li>
+                Relevant modules: Fundamentals of Television Technology (98); Creative Communication in
+                Integrated Media (95); Film and Television Adaptation (93); News Gathering and Editing (92.5);
+                TV Interviewing (92.4); Collaborative Production (92.5)
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 教学经历 -->
+    <section id="teaching">
+      <h2>Teaching Experience</h2>
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">Teaching Assistant · YIFENG Media Education (Department of Theater, Film, and Television Directing)</h3>
+          <span class="entry-date">Oct. 2024</span>
+        </div>
+        <p class="entry-sub">Governing Unit of the China Film and Television College Entrance Examination Training Alliance</p>
+        <ul class="entry-points">
+          <li>
+            Marked coursework assignments and provided after-class academic tutoring and over 10 hours of
+            evening self-study tutoring for 10 students.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 其他课程 -->
+    <section id="courses">
+      <h2>Additional Courses</h2>
+      <ul class="rows">
+        <li>
+          <span class="r-name">Hong Kong Cinema Through a Global Lens, University of Hong Kong</span>
+          <span class="r-date">Mar. 2024 – Apr. 2024</span>
+        </li>
+        <li>
+          <span class="r-name">Oriental Cinema, Wuhan University</span>
+          <span class="r-date">Nov. 2023 – Dec. 2024</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 奖项与荣誉 -->
+    <section id="awards">
+      <h2>Awards &amp; Honours</h2>
+
+      <h3 class="group">Film &amp; Media Awards</h3>
+      <ul class="entry-points" style="margin-top:0;">
+        <li>2026 <em>Southern Metropolis Daily</em> Monthly Journalism Award, <em>Mr. AI's Salon: People Making Money with AI</em> (Video Podcast) – Producer</li>
+        <li>2026 Douyin Campus New Charity &amp; Possibility Creation Competition Shortlisted, <em>The Daydreamer</em> – Director</li>
+        <li>2026 SCAU National Security Micro-Video Competition First Prize, <em>The Grain Guardian</em> – Lead Actor</li>
+        <li>2025 Guangdong-Hong Kong-Macao Greater Bay Area University Student Arts Festival First Prize (Film Track), <em>As I Hear It</em> – Producer</li>
+        <li>2025 2nd “National Security in My Eyes” National Short Video Competition National Second Prize, <em>The Grain Guardian</em> – Lead Actor</li>
+      </ul>
+
+      <h3 class="group">Honours</h3>
+      <ul class="entry-points" style="margin-top:0;">
+        <li>2025 SCAU Summer Social Practice Programme Excellent Team (Faculty Level)</li>
+        <li>2023 SCAU College of Arts Excellent League Member</li>
+      </ul>
+
+      <h3 class="group">Debate Awards</h3>
+      <ul class="entry-points" style="margin-top:0;">
+        <li>2025 Sustainable Development Youth Creative Debate Tournament – Champion</li>
+        <li>2025 Future Voice World Youth Debate Competition – Second Place</li>
+        <li>2025 Greater Bay Area University Student Tax Debate Invitational – Second Place</li>
+        <li>2025 Shanghai Cup Summer Tournament University Division (Online Zone) – Fourth Place</li>
+        <li>2025 Shidu Chinese Debate League Summer Mingke (Club Track) – Second Place</li>
+        <li>2024 Zhushui Yunshan Guangzhou University Debate Championship – Second Place</li>
+        <li>2024 Shanghai Cup Chinese Debate Championship (Open Division) – Second Place</li>
+        <li>2024 Sustainable Development Creative Debate Tournament (South China Region) – Champion</li>
+        <li>2024 “Qiyuan Cup” University Student Integrity-Themed Debate Invitational (Guangdong University of Finance and Economics) – Second Place &amp; Outstanding Debater</li>
+        <li>2024 2nd Zhaori Cup Online Debate Tournament – Champion</li>
+        <li>2024 2nd Tunan Cup Online Debate Tournament – Second Place</li>
+      </ul>
+    </section>
+
+    <!-- 语言与技能 -->
+    <section id="skills">
+      <h2>Languages &amp; Skills</h2>
+      <div class="skill-block">
+        <p class="skill-label">Languages</p>
+        <p class="skill-content">Mandarin (native) | Cantonese (native) | English (proficient)</p>
+      </div>
+      <div class="skill-block">
+        <p class="skill-label">Skills</p>
+        <p class="skill-content">Fieldwork | Semi-structured Interview | Oral History | In-depth Interview | Autoethnography | Questionnaire Survey | Case Study</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ==================== Academic Dissertations 页面 ==================== -->
+  <div class="page" id="dissertations">
+    <section id="publications">
+
+      <div class="entry">
+        <p class="cite">
+          Lian, J. (2026). “Looking North” and “Resisting North”: Guangdong–Hong Kong imaginaries in
+          <em>In-Laws, Out-Laws</em>, the first southern New Year film in mainland China.
+          Manuscript under review.
+        </p>
+        <p class="entry-sub">Supervisor: Hui HU, Associate Professor, South China Agricultural University.</p>
+
+        <div class="fields">
+          <ul>
+            <li><span class="k">Questions：</span>
+              Why did it fare poorly at the Hong Kong box office yet perform relatively well in Guangdong?
+              Why did the “southern” affinity fail to guarantee the success of the Guangdong–Hong Kong film co-production?
+            </li>
+            <li><span class="k">Method：</span>
+              Drew on a cross-cultural production perspective, reconstructed the entire process through close
+              reading and comparison of the television and film texts combined with related interviews and reports,
+              and analyzed it in the contexts of Lunar New Year film development in Hong Kong and mainland China,
+              Raymond Wong’s personal creative trajectory, and other related contexts.
+            </li>
+            <li><span class="k">Key findings：</span>
+              For Hong Kong, not only the “North” but also the “South” is the Other who is being looked up to
+              and needed to resist. As far as Guangdong is concerned, it has completed a psychological imagination
+              of “identity reversal” in the film, but such imagination is still not separated from Hong Kong as a
+              reference system, reflecting complex identity anxiety.
+            </li>
+            <li><span class="k">Innovation：</span>
+              Refined the concept of the mainland to the south of the mainland and the north of the mainland,
+              and provided another analytical path for understanding Hong Kong-ness in the co-productions.
+              Filled the research gap of the southern New Year film in mainland China.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="entry">
+        <p class="cite">
+          Lian, J. (2026). Motivation, practices and space of “wandering” in Zhang Lü’s and
+          Hong Sang-soo’s films. Manuscript under review.
+        </p>
+
+        <div class="fields">
+          <ul>
+            <li><span class="k">Questions：</span>
+              How do the differences in the wanderer’s motivations, practices, and spaces between the Chinese
+              Korean director and the South Korean director reflect aspects of the experience of modernity in
+              East Asian cinema?
+            </li>
+            <li><span class="k">Method：</span>
+              Taking <em>Dooman River</em>, <em>Night and Day</em>, and other representative films as texts for
+              comparison, this study comprehensively employs interdisciplinary perspectives from film studies,
+              cultural studies, and other fields to conduct an analysis.
+            </li>
+            <li><span class="k">Key findings：</span>
+              Zhang Lü’s films point to a tracing of the past and present a profound sense of history.
+              Hong Sang-soo’s arise from present desires and manifest an isomorphism between daily space and
+              ethical boundaries. These constitute two forms of the experience of “homelessness” in East Asian
+              cinema: one is “historical homelessness,” and the other is “everyday homelessness.”
+            </li>
+            <li><span class="k">Innovation：</span>
+              This study enriched the comparative map of experiences of cinematic modernity in East Asia.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== Research Experience 页面 ==================== -->
+  <div class="page" id="research-experience">
+    <section id="experience">
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">Research on the Innovative Development of Guangdong-produced Film and Television Dramas in the New Era</h3>
+          <span class="entry-date">Jul. 2025 – Present</span>
+        </div>
+        <p class="entry-sub">
+          Regular Project of the Guangdong Provincial Philosophy and Social Sciences Planning Programme<br>
+          Supervisor: Hui HU, Associate Professor, South China Agricultural University.
+        </p>
+        <ul class="entry-points">
+          <li><span class="k">Synopsis</span><br>
+            This project investigates representative cases of Guangdong-produced film and television dramas
+            from 2012 to 2024 and analyzes their innovative development strategies to provide practical
+            references for their future high-quality development.
+          </li>
+          <li><span class="k">Main Contributions</span>
+            <ul class="sub-points">
+              <li>
+                Analyzed the official promotional accounts of 12 works, and distilled that, beyond thematic
+                expression, some works similarly suffered from the predicament of “placelessness” in platform
+                dissemination, mainly manifested in fragmentation and self-ossification. It responded to the
+                problem of consumer-side strength and production-side weakness from the communication perspective.
+              </li>
+              <li>
+                Reviewed the current state of research and policy documents, identified existing research gaps,
+                and led the drafting of the literature review, thereby delineating the project’s entry point
+                and innovative direction.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <h3 class="group line-under">Cultural Heritage &amp; Other Tracks</h3>
+
+      <div class="entry no-border-top">
+        <div class="entry-head">
+          <h3 class="entry-title">A Digital Interactive Theatre of Cultural Artefacts Set in the Singaporean Kopitiam</h3>
+          <span class="entry-date">Sep. 2026 – Present</span>
+        </div>
+        <p class="entry-sub">Interdisciplinary Self-Organizing Cultural Relics Research Project.</p>
+        <ul class="entry-points">
+          <li><span class="k">Synopsis</span><br>
+            This project uses the digital interactive theatre to make cultural relics perceptible rather than
+            constructed, to show its autonomy. The scene is set in the Singaporean Kopitiam, a coffee shop,
+            to discuss the relationships between migration, labor, and public space. It is currently in the
+            narrative-building stage.
+          </li>
+          <li><span class="k">Main Contributions</span>
+            <ul class="sub-points">
+              <li>
+                Reviewed the literature and organized existing museum collection records and other materials,
+                placed coffee shops back into colonial trade and other structures for examination, avoided
+                obfuscation by nostalgic narratives, and made the topic no longer too broad.
+              </li>
+              <li>
+                Started from questions such as “which objects might appear in the same scene,” refined the
+                selection criteria, proposed a method of linking stories through core objects, solved the problem
+                of fragmented stories caused by too many objects, and advanced the project to the verification
+                stage of “which objects are related to one another.”
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">Kunqu Opera Multimodal Database and Quantitative Transcoding Theory (Kunyuan)</h3>
+          <span class="entry-date">Aug. 2026 – Sep. 2026</span>
+        </div>
+        <p class="entry-sub">
+          Project of the School of Arts and the Computational Arts Lab, Peking University<br>
+          Supervisor: Wang Delong, Assistant Research Fellow and Boya Postdoctoral Fellow, School of Arts, Peking University.
+        </p>
+        <ul class="entry-points">
+          <li><span class="k">Synopsis</span><br>
+            This project aims to construct a multimodal dataset, especially text-track alignment and annotation,
+            establishing precise temporal alignment between lyrics and audio recordings. It is designed to
+            support subsequent development of AI agents for Kunqu Opera.
+          </li>
+          <li><span class="k">Main Contributions</span>
+            <ul class="sub-points">
+              <li>
+                Addressed the issue of low-quality samples degrading model training in corpus construction by
+                auditing approximately 45 hours of audio recordings, annotating vocal truncation, background
+                noise, and related defects, and delivering a quality report.
+              </li>
+              <li>
+                Reviewed over 200 contested samples involving overlapping audio and vocal mode classifications,
+                contributing to the refinement of annotation guidelines and promoting greater consistency in
+                annotation adjudication.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">Preserving the Lineage in Images: Visual Fieldwork on the Qiqiao Intangible Cultural Heritage in Zhucun, Guangdong</h3>
+          <span class="entry-date">Jul. 2026 – Present</span>
+        </div>
+        <p class="entry-sub">
+          Postgraduate Education Innovation Project, South China Agricultural University<br>
+          Supervisor: Difei TANG, Associate Professor, South China Agricultural University.
+        </p>
+        <ul class="entry-points">
+          <li><span class="k">Synopsis</span><br>
+            This project examines how female inheritors of the Qiqiao customs of the Pan lineage acquire
+            legitimacy within the lineage system and conversely reshape it. Through the perspective of
+            emotional politics and aesthetic labour, the project invites them to co-create audiovisual
+            archives, thereby exploring the mechanisms of their cultural identity.
+          </li>
+          <li><span class="k">Main Contributions</span>
+            <ul class="sub-points">
+              <li>
+                Took charge of writing the literature review and compiling folklore materials during the
+                application stage, and assisted the team in establishing a community-based participatory
+                research methodology.
+              </li>
+              <li>
+                Conducted four preliminary field visits, interviewed 12 individuals informally, pre-interviewed
+                seven individuals, and led the development of a strategy focused on “building rapport with key
+                internal informants and preliminary participatory observation,” successfully inviting four female
+                inheritors to participate in the co-creation of video archives.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">A Study on the Practical Path of Speculative Education in County-Level High Schools Based on Autoethnography</h3>
+          <span class="entry-date">Jul. 2025 – Present</span>
+        </div>
+        <p class="entry-sub">
+          2025–2026 Guangdong Youth College Students’ Vanguard Campaign for the “Hundred, Thousand, Ten Thousand Project.”
+        </p>
+        <ul class="entry-points">
+          <li><span class="k">Synopsis</span><br>
+            This project employs autoethnography to explore the practical pathways of quality-oriented education
+            in the county-level high school, from the perspective of an individual as a debate team coach, the
+            protagonist of the <em>Southern Weekly</em> feature article “The Best Debater Comes from an Unknown
+            County High School,” and a six-year team member. The paper is currently in preparation.
+          </li>
+          <li><span class="k">Main Contributions</span>
+            <ul class="sub-points">
+              <li>
+                Conducted an approximately 8,000-word retrospective reflection based on relevant competition
+                preparation materials, social media activity, and other data from 2017 to 2026, integrated life
+                course theory and role theory to reflect on typical cases such as the public opinion storm
+                triggered by coverage, and reached conclusions including coach turnover and other factors
+                constraining development.
+              </li>
+              <li>
+                Conducted informal conversations with more than 30 individuals, including former team members,
+                faculty advisors, and debaters from other schools, gathered their views on the same events or
+                relationships, to form a multi-perspective comparison.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== Academic Activities 页面 ==================== -->
+  <div class="page" id="activities">
+    <section id="academic-activities">
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">Presenter · Cloud Tour – East China Debate Invitational, CHD Debate</h3>
+          <span class="entry-date">Jul. 2024 · Zhenjiang, China</span>
+        </div>
+        <p class="entry-desc">
+          Drew on the perspective of embodied spectatorship to discuss “screen photography” during the Spring
+          Festival film season, explored the tension between its role as an extension of bodily cinematic
+          experience and the destruction and re-establishment of embodied co-presence.
+        </p>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">Organizer · FIRST Active Screenings: How AI Is Reshaping the Ontology, Methods, and Expression of Short Short Film</h3>
+          <span class="entry-date">May 2026 · Online</span>
+        </div>
+        <p class="entry-desc">
+          Invited the directors of the short short film and other professionals to discuss topics including
+          creative workflow, authorship and the dissemination ecosystem. This was the first conference to
+          address the intersection of AIGC and short short films.
+        </p>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">Participant · Insights from Cultural Exception, Film Policy, Theory and Communication</h3>
+          <span class="entry-date">Sep. 2026 · Guangdong, China</span>
+        </div>
+        <p class="entry-desc">
+          Prompted by debates on the “construction of an autonomous knowledge system for Chinese film studies,”
+          reconsidered whether “critical transnationalism,” previously used in the RP on Guangdong–Hong Kong
+          co-productions, still relies on Western theories for secondary validation, and whether “Chinese
+          exceptionalism” risks cultural essentialism. Incorporated diaspora and power asymmetry as analytical
+          dimensions and addressed the limitation that it still takes the nation-state as its unit of analysis.
+          Proposed “critical cross-border regionalism.”
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== Professional Experience 页面 ==================== -->
+  <div class="page" id="professional">
+    <section id="professional-experience">
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">Pearl River Film Group — Production Center Intern</h3>
+          <span class="entry-date">Jul. 2026 – Present</span>
+        </div>
+        <p class="entry-sub">Guangdong, China.</p>
+        <ul class="entry-points">
+          <li>
+            Assist in the incubation of the music film <em>Fame Before Forty</em>, including script outline
+            revision, material compilation, and other related tasks.
+          </li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">Southern Metropolis Daily — AIGC Training Centre Intern</h3>
+          <span class="entry-date">Apr. 2026 – Sep. 2026</span>
+        </div>
+        <p class="entry-sub">Guangdong, China.</p>
+        <ul class="entry-points">
+          <li>
+            Managed full-cycle editing of short videos for the “Mr AI Li Hao” IP matrix, producing 37 videos
+            with cumulative views exceeding 2 million, several of which have individually surpassed
+            200,000 views. Also serve as director for the livestream interview series
+            <em>Mr AI Reception Room</em>.
+          </li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">NetEase — Content Production Intern</h3>
+          <span class="entry-date">Jan. 2026 – Apr. 2026</span>
+        </div>
+        <p class="entry-sub">Guangdong, China.</p>
+        <ul class="entry-points">
+          <li>
+            Produced the viral AI comic drama <em>National Fate: Are You Kidding? You Call This Wilderness
+            Survival?</em>, which achieved 51.68 million views and ranked No. 1 on the platform’s male-oriented
+            content chart. Provided feedback on storyline and character development.
+          </li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">Guangdong South International Media Advertising Co., Ltd. — New Media Operations Intern</h3>
+          <span class="entry-date">Jun. 2025 – Jul. 2025</span>
+        </div>
+        <p class="entry-sub">Guangdong, China.</p>
+        <ul class="entry-points">
+          <li>
+            Built the “Southern Yi’antang” new media presence from the ground up. Served as an executive
+            producer for the 2025 QQ Speed × Qingyuan Gulong Canyon advertisements. Also planned the
+            Rejoice &amp; Lotus Supermarket “Variety Show” offline promotional event.
+          </li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">ZAKER — New Media Operations Intern</h3>
+          <span class="entry-date">Jun. 2024 – Aug. 2024</span>
+        </div>
+        <p class="entry-sub">Guangdong, China.</p>
+        <ul class="entry-points">
+          <li>
+            Worked on the Cantonese opera documentary <em>My Manifesto – The Female Warrior’s Tale</em> for
+            the Guangzhou Cultural Centre.
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== Creative & Cultural Experience 页面 ==================== -->
+  <div class="page" id="creative">
+    <section id="creative-experience">
+
+      <h3 class="group" style="margin-top:0;">Film Production</h3>
+      <ul class="entry-points" style="margin-top:0;">
+        <li>
+          <span class="k">Script Consultant</span> of the film <em>Best Debater from a County High School</em>
+          (expected to shoot in 2027): directed by Xu Yizhou, a Chinese screenwriter whose filmography includes
+          <em>Take Off</em> (2026) and <em>It’s My Time</em> (2026). Adapted from the <em>Southern Weekly</em>
+          feature article.
+        </li>
+        <li>
+          <span class="k">Production Assistant</span> of the AIGC experimental short film <em>Leap Beyond</em>
+          (BNU-HKBU United International College, 2026): selected for the 22nd Beijing International Sports
+          Film Week (2026).
+        </li>
+        <li>
+          <span class="k">Producer</span> of the short film <em>As I Hear It</em> (2025): 2025 GBA University
+          Student Arts Festival First Prize.
+        </li>
+      </ul>
+
+      <h3 class="group">Film Festival Curation</h3>
+      <ul class="entry-points" style="margin-top:0;">
+        <li>Member of the FIRST Discovery Film Festival – Recommendation Committee</li>
+        <li>Curator of the FIRST Active Screening Programme</li>
+        <li>Market Centre Member of ORBIT Youth Film Festival</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- ==================== 页脚 ==================== -->
+  <footer>
+    <span>© 2026 Junjie Lian</span>
+    <span>Last updated: Oct. 2026</span>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var links = document.querySelectorAll('.topnav a');
+    var pages = document.querySelectorAll('.page');
+
+    function switchPage(targetId) {
+      links.forEach(function (link) {
+        link.classList.toggle('active', link.dataset.target === targetId);
+      });
+      pages.forEach(function (page) {
+        page.classList.toggle('active', page.id === targetId);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    links.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        switchPage(this.dataset.target);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
